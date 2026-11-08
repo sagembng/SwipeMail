@@ -428,3 +428,19 @@
     display: none;
   }
 }
+
+.legalLinks {
+  display: flex;
+  gap: 16px;
+  margin: 0 0 4px 12px;
+  font: 600 12px var(--body);
+}
+.legalLinks a {
+  color: var(--muted);
+}
+@media (hover: hover) {
+  .legalLinks a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+}

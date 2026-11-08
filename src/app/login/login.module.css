@@ -316,3 +316,19 @@
     font-size: 34px;
   }
 }
+
+.legal {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.legal a {
+  color: var(--muted);
+  font-weight: 600;
+}
+@media (hover: hover) {
+  .legal a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+}

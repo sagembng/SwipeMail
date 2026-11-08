@@ -253,6 +253,10 @@ export default function SettingsMenu({ name, email, initials, demo, signOutActio
           )}
 
           <div className={s.actions}>
+            <p className={s.legalLinks}>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/terms">Terms</Link>
+            </p>
             {signOutAction ? (
               <LoaderForm action={signOutAction} message="Signing you out…">
                 <button type="submit" className={s.row}>

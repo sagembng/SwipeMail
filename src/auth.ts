@@ -3,9 +3,10 @@ import Google from "next-auth/providers/google";
 import type { JWT } from "next-auth/jwt";
 
 /**
- * gmail.modify lets SwipeMail read mail and change labels (UNREAD, STARRED).
- * It cannot permanently delete mail and cannot send. It is a Google "restricted" scope:
- * fine in Testing mode (up to 100 test users), needs Google verification for public use.
+ * gmail.modify is the smallest scope that lets SwipeMail change labels (UNREAD, STARRED, INBOX). Google's description of it
+ * is broad (it also allows composing and sending), but SwipeMail's code only reads messages and changes those labels.
+ * It is a Google "restricted" scope: an unverified app can have up to 100 users (test users, or anyone once published),
+ * and more than that needs Google's verification.
  */
 const GMAIL_SCOPE = "https://www.googleapis.com/auth/gmail.modify";
 

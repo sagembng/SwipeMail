@@ -147,6 +147,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
 
       <footer className={s.foot}>
         <span>© 2026 SwipeMail</span>
+        <nav className={s.legal} aria-label="Legal">
+          <Link href="/privacy">Privacy Policy</Link>
+          <Link href="/terms">Terms of Service</Link>
+        </nav>
       </footer>
     </main>
     </PrefsScope>

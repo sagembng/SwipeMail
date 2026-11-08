@@ -57,9 +57,9 @@ Branding/, design/  logo, inspiration and early design prototypes
 
 ## Privacy and security
 
-- SwipeMail asks Google for the `gmail.modify` permission: it can read mail and change labels (read, starred, archived). It cannot send or permanently delete mail.
+- SwipeMail asks Google for the `gmail.modify` permission, the smallest one that lets an app change a message's labels (read, starred, archived). Google describes it broadly (it also covers composing and sending), so the consent screen sounds stronger than what the app does. SwipeMail's code only reads emails and changes those labels. It never sends, drafts or deletes anything.
 - Email text is processed in memory to build each card and is never stored. Tokens stay in an encrypted, httpOnly cookie and are never sent to browser code.
-- The app runs in Google's "Testing" mode, so only people added as test users can sign in. The demo and walkthrough are open to everyone.
+- While the app is in Google's "Testing" mode only people added as test users can sign in. Once it is published, anyone can sign in (after Google's "unverified app" warning), up to Google's limit of 100 users for unverified apps. The demo and walkthrough are always open to everyone.
 
 ## Credits
 
