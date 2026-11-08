@@ -138,9 +138,18 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <p className={s.privacy}>
             <ShieldIcon />
             <span>
-              SwipeMail only changes the read and starred status of your emails. Message bodies are never stored.
+              SwipeMail only changes the read, starred and archived status of your emails. Message bodies are never stored.
             </span>
           </p>
+
+          <details className={s.warn}>
+            <summary>Google shows a warning screen?</summary>
+            <p>
+              That is expected. SwipeMail is a personal project that Google has not formally reviewed, so Google shows &ldquo;Google hasn&apos;t verified this app&rdquo;
+              to everyone. To continue, click <strong>Advanced</strong>, then <strong>Go to this site (unsafe)</strong>, then tick the Gmail box and press{" "}
+              <strong>Continue</strong>. You can remove access any time in your Google Account.
+            </p>
+          </details>
         </div>
         </div>
       </section>
