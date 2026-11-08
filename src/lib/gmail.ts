@@ -3,6 +3,7 @@ import sanitizeHtml from "sanitize-html";
 import { getToken } from "next-auth/jwt";
 import { refreshAccessToken } from "@/auth";
 import type { ApiError, ApiMail, MailAction } from "./mail-types";
+import { isSecureRequest } from "./cookies";
 import { Semaphore, TtlCache, isRateLimit, retryDelayMs } from "./gmail-throttle";
 import { classify, extractFacts, summarize } from "./summarize";
 
@@ -22,7 +23,10 @@ const REAUTH = () => new GmailError(401, "reauth", "Your Google session expired.
 
 /** Reads the access token from the encrypted session cookie, refreshing it if it has expired. */
 export async function getAccessToken(): Promise<string> {
-  const token = await getToken({ req: { headers: await headers() }, secret: process.env.AUTH_SECRET });
+  const requestHeaders = await headers();
+  // On https the login cookie has a different name ("__Secure-..."), so say which one to look for.
+  const secureCookie = isSecureRequest(requestHeaders, process.env.AUTH_URL);
+  const token = await getToken({ req: { headers: requestHeaders }, secret: process.env.AUTH_SECRET, secureCookie });
   if (!token) throw new GmailError(401, "unauthenticated", "You are not signed in.");
   if (token.error) throw REAUTH();
 
