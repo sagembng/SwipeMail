@@ -1,0 +1,318 @@
+.page {
+  min-height: 100dvh;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 22px max(20px, env(safe-area-inset-left, 0px)) 24px max(20px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 440px);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+  .authCol {
+    order: -1;
+  }
+}
+
+/* ----- hero ----- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+.hero h1 {
+  font: 800 clamp(38px, 6vw, 68px) / 1.02 var(--display);
+  letter-spacing: -0.04em;
+  margin: 0;
+  text-wrap: balance;
+}
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  max-width: 50ch;
+}
+.points {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px 10px 10px;
+  border-radius: 999px;
+}
+.points b {
+  display: block;
+  font: 700 14px/1.2 var(--display);
+}
+.points small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  flex: none;
+}
+.dot svg {
+  width: 18px;
+  height: 18px;
+}
+.dRead {
+  --c: var(--read);
+}
+.dStar {
+  --c: var(--star);
+}
+.dPrimary {
+  --c: var(--primary);
+}
+
+/* decorative card stack */
+.preview {
+  position: relative;
+  height: 190px;
+  max-width: 440px;
+  margin-top: 28px;
+}
+.pcard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 26px;
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-sh);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+.p1 {
+  height: 150px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.p2 {
+  height: 150px;
+  transform: translateY(-15px) scale(0.945);
+  opacity: 0.8;
+}
+.p3 {
+  height: 150px;
+  transform: translateY(-30px) scale(0.89);
+  opacity: 0.5;
+}
+.prow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prow > div {
+  flex: 1;
+  min-width: 0;
+}
+.prow b {
+  display: block;
+  font: 600 13.5px var(--body);
+}
+.prow small {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.pav {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #5b6cff;
+  color: #fff;
+  font: 700 12px var(--display);
+  display: grid;
+  place-items: center;
+  font-style: normal;
+}
+.p1 strong {
+  font: 700 18px/1.2 var(--display);
+  letter-spacing: -0.02em;
+}
+.line {
+  height: 8px;
+  border-radius: 8px;
+  background: var(--line);
+  display: block;
+}
+.short {
+  width: 62%;
+}
+
+/* ----- sign-in card ----- */
+.card {
+  border-radius: 32px;
+  padding: clamp(24px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.card h2 {
+  font: 800 30px/1.1 var(--display);
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.sub {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+.google {
+  background: var(--glass-strong);
+  padding: 14px 22px;
+  font-size: 15px;
+}
+.demo {
+  padding: 14px 22px;
+  font-size: 15px;
+}
+.card form {
+  display: flex;
+}
+.card form .google {
+  flex: 1;
+}
+.google:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.alert {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  background: color-mix(in srgb, var(--urgent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--urgent) 35%, transparent);
+}
+.or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.or::before,
+.or::after {
+  content: "";
+  height: 1px;
+  background: var(--line);
+  flex: 1;
+}
+.privacy {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.privacy svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--read);
+  margin-top: 1px;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* column holding the badge and the sign-in card */
+.authCol {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  min-width: 0;
+}
+.badge {
+  align-self: center;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font: 600 13px var(--body);
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--glass-brd));
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 14%, transparent), color-mix(in srgb, var(--read) 12%, transparent)),
+    var(--glass);
+}
+.hintLine {
+  margin: -4px 0 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* Tablet and other single-column widths: a readable column in the middle instead of a stretched one. */
+@media (max-width: 900px) {
+  .authCol,
+  .hero {
+    width: 100%;
+    max-width: 540px;
+    margin-inline: auto;
+  }
+  .preview {
+    max-width: 100%;
+  }
+}
+
+/* Short screens: tighter spacing so the sign-in card is reachable without much scrolling. */
+@media (max-height: 520px) {
+  .page {
+    gap: 12px;
+    padding-top: 12px;
+  }
+  .grid {
+    gap: 20px;
+  }
+  .hero h1 {
+    font-size: 34px;
+  }
+}
