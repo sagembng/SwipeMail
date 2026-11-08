@@ -1,0 +1,13 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font: 800 19px var(--display);
+  letter-spacing: -0.025em;
+  min-width: 0;
+}
+.logo {
+  height: 24px;
+  width: auto;
+  display: block;
+}

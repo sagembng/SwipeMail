@@ -1,0 +1,307 @@
+.page {
+  min-height: 100dvh;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px max(16px, env(safe-area-inset-left, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.skip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font: 600 13px var(--body);
+  color: var(--muted);
+}
+@media (hover: hover) {
+  .skip:hover {
+    color: var(--ink);
+  }
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+/* progress */
+.dots {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.dots li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 999px;
+  font: 600 12px var(--body);
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+.dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 0.25s;
+}
+.dots li.on {
+  color: var(--ink);
+  background: var(--glass);
+  border-color: var(--glass-brd);
+}
+.dots li.on i {
+  background: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+.dots li.done i {
+  background: var(--read);
+}
+@media (max-width: 420px) {
+  .dots li:not(.on) span {
+    display: none;
+  }
+}
+
+/* the tooltip above the card */
+.tip {
+  position: relative;
+  align-self: center;
+  width: min(440px, 100%);
+  padding: 14px 18px 14px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: linear-gradient(var(--card), var(--card)), var(--bg);
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--glass-brd));
+  animation: tipIn 0.35s var(--spring);
+}
+.tip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 14px;
+  height: 14px;
+  background: inherit;
+  border-right: 1px solid color-mix(in srgb, var(--primary) 45%, var(--glass-brd));
+  border-bottom: 1px solid color-mix(in srgb, var(--primary) 45%, var(--glass-brd));
+  transform: translateX(-50%) rotate(45deg);
+}
+@keyframes tipIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+}
+.tip small {
+  font: 600 11px var(--body);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+}
+.tip b {
+  font: 800 19px/1.2 var(--display);
+  letter-spacing: -0.02em;
+}
+.tip span {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* the deck and the cue over it */
+.deckWrap {
+  position: relative;
+}
+.deckWrap > div:first-child {
+  margin-top: 18px;
+}
+.cue {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 30;
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+  border: 2px solid var(--primary);
+}
+.cueHold {
+  animation: hold 1.8s ease-out infinite;
+}
+.cueLeft {
+  animation: slideLeft 2.2s var(--ease) infinite;
+}
+.cueRight {
+  animation: slideRight 2.2s var(--ease) infinite;
+}
+@keyframes hold {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  70%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@keyframes slideLeft {
+  0% {
+    transform: translateX(70px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    transform: translateX(-110px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-110px);
+    opacity: 0;
+  }
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(-70px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    transform: translateX(110px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(110px);
+    opacity: 0;
+  }
+}
+.note {
+  margin: 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* finish screen */
+.finish {
+  margin: auto 0;
+  padding: clamp(28px, 6vw, 44px) clamp(22px, 5vw, 40px);
+  border-radius: 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: tipIn 0.45s var(--spring);
+}
+.finishLogo {
+  width: 150px;
+  height: auto;
+}
+.finish h1 {
+  margin: 6px 0 0;
+  font: 800 clamp(28px, 6vw, 38px) / 1.1 var(--display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.finish p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  max-width: 38ch;
+}
+.connectForm {
+  display: flex;
+  width: 100%;
+}
+.cta {
+  width: 100%;
+  padding: 15px 24px;
+  font-size: 15px;
+}
+.links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+.links a,
+.links button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: 600 13.5px var(--body);
+  color: var(--primary);
+  padding: 4px 2px;
+}
+@media (hover: hover) {
+  .links a:hover,
+  .links button:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Short screens: the tooltip and the dots take less room so the card stays visible. */
+@media (max-height: 520px) {
+  .page {
+    gap: 6px;
+  }
+  .stage {
+    gap: 6px;
+  }
+  .dots {
+    margin: 0;
+  }
+  .tip {
+    padding: 8px 14px;
+  }
+  .tip span,
+  .note {
+    display: none;
+  }
+  .tip b {
+    font-size: 15px;
+  }
+  .deckWrap > div:first-child {
+    margin-top: 10px;
+  }
+  .finish {
+    padding: 16px 22px;
+    gap: 8px;
+  }
+  .finishLogo {
+    width: 90px;
+  }
+}

@@ -1,0 +1,233 @@
+/* SwipeMail design tokens. Colours come from the logo; dark mode uses lighter tints of the same hues.
+   Theme resolution: data-theme="light|dark" on <html> wins, otherwise the OS setting. */
+:root {
+  --bg: #eff0f8;
+  --grid: rgba(35, 43, 52, 0.055);
+  --ink: #232b34;
+  --muted: #5f6b7a;
+  --line: rgba(35, 43, 52, 0.12);
+  --glass: rgba(255, 255, 255, 0.5);
+  --glass-strong: rgba(255, 255, 255, 0.82);
+  --card: rgba(255, 255, 255, 0.95);
+  --glass-brd: rgba(255, 255, 255, 0.9);
+  --glass-sh: 0 12px 32px -14px rgba(35, 43, 52, 0.28);
+  --primary: #6a35e0;
+  --on-primary: #ffffff;
+  --read: #0891b2;
+  --star: #f2622b;
+  --urgent: #e0386a;
+  --snooze: #2f7fe0;
+  --grad: linear-gradient(135deg, #6a35e0, #c23bd8);
+  --grad-wide: linear-gradient(90deg, #00b8d9, #6a35e0 55%, #e85fd8);
+  --blob-a: 0.2;
+  --blob-b: 0.16;
+  --display: var(--font-display), system-ui, sans-serif;
+  --body: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --spring: cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0c12;
+    --grid: rgba(255, 255, 255, 0.045);
+    --ink: #eef1f7;
+    --muted: #9aa3b5;
+    --line: rgba(255, 255, 255, 0.1);
+    --glass: rgba(255, 255, 255, 0.06);
+    --glass-strong: rgba(26, 29, 42, 0.7);
+    --card: rgba(24, 27, 40, 0.95);
+    --glass-brd: rgba(255, 255, 255, 0.13);
+    --glass-sh: 0 14px 36px -14px rgba(0, 0, 0, 0.7);
+    --primary: #a78bfa;
+    --on-primary: #1a0b3d;
+    --read: #22d3ee;
+    --star: #ff9a66;
+    --urgent: #ff7a9c;
+    --snooze: #7db4ff;
+    --grad: linear-gradient(135deg, #6d49e6, #c040d8);
+    --grad-wide: linear-gradient(90deg, #22d3ee, #8b6cf5 55%, #f08ae8);
+    --blob-a: 0.28;
+    --blob-b: 0.18;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0c12;
+  --grid: rgba(255, 255, 255, 0.045);
+  --ink: #eef1f7;
+  --muted: #9aa3b5;
+  --line: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-strong: rgba(26, 29, 42, 0.7);
+  --card: rgba(24, 27, 40, 0.95);
+  --glass-brd: rgba(255, 255, 255, 0.13);
+  --glass-sh: 0 14px 36px -14px rgba(0, 0, 0, 0.7);
+  --primary: #a78bfa;
+  --on-primary: #1a0b3d;
+  --read: #22d3ee;
+  --star: #ff9a66;
+  --urgent: #ff7a9c;
+  --snooze: #7db4ff;
+  --grad: linear-gradient(135deg, #6d49e6, #c040d8);
+  --grad-wide: linear-gradient(90deg, #22d3ee, #8b6cf5 55%, #f08ae8);
+  --blob-a: 0.28;
+  --blob-b: 0.18;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 44px 44px,
+    var(--bg);
+  color: var(--ink);
+  font: 400 15px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Touch: no grey flash on tap, and no 300ms double-tap-zoom delay on buttons and links. */
+a,
+button,
+summary,
+label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* While the full-screen loader is up, the page behind it must not scroll or show a scrollbar. */
+html:has([data-loader][data-hidden="false"]) {
+  overflow: hidden;
+}
+
+/* ---------- shared surfaces ---------- */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-brd);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--glass-sh);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font: 600 14px var(--body);
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-brd);
+  background: var(--glass);
+  color: var(--ink);
+  cursor: pointer;
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: var(--glass-sh);
+  transition:
+    transform 0.2s var(--spring),
+    background 0.2s,
+    filter 0.2s;
+}
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-1px);
+    background: var(--glass-strong);
+  }
+}
+.btn:active {
+  transform: scale(0.96);
+}
+.btnPrimary {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 12px 26px -12px #8b3fe0;
+}
+@media (hover: hover) {
+  .btnPrimary:hover {
+    background: var(--grad);
+    filter: brightness(1.08);
+  }
+}
+.btnText {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  color: var(--primary);
+}
+
+.tag {
+  font: 600 11.5px var(--body);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-brd);
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+.tag i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c, var(--muted));
+  display: block;
+}
+.tagAct {
+  --c: var(--primary);
+}
+.tagPromo {
+  --c: var(--star);
+}
+.tagUrgent {
+  --c: var(--urgent);
+}
+.tagFyi {
+  --c: var(--read);
+}
+
+kbd {
+  font: 600 11.5px var(--body);
+  min-width: 26px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 7px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--glass);
+  border: 1px solid var(--glass-brd);
+  border-bottom-width: 2px;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

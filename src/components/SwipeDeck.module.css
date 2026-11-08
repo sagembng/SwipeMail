@@ -1,0 +1,418 @@
+.deck {
+  position: relative;
+  /* Whatever is left under the header and above the buttons, so the buttons stay on screen. */
+  height: clamp(320px, calc(100dvh - 440px), 560px);
+  margin-top: 26px;
+  width: 100%;
+}
+@media (max-width: 700px) {
+  /* On a phone the card plus the buttons below it must fit on one screen. */
+  .deck {
+    height: clamp(340px, calc(100dvh - 430px), 540px);
+    margin-top: 22px;
+  }
+  .card {
+    padding: 14px 16px 10px;
+    border-radius: 26px;
+  }
+  .subject {
+    font-size: 22px;
+  }
+  .summary {
+    font-size: 15.5px;
+  }
+}
+.card {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 16px 18px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  /* A near-white layer over a solid base, so cards stacked underneath never show through the text. */
+  background: linear-gradient(var(--card), var(--card)), var(--bg);
+  border: 1px solid var(--glass-brd);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  box-shadow: var(--glass-sh);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  will-change: transform;
+  transform-origin: 50% 100%;
+}
+/* The top card handles every direction itself, so the browser must not scroll or pull-to-refresh under the finger. */
+.top {
+  cursor: grab;
+  touch-action: none;
+}
+.dragging {
+  cursor: grabbing;
+}
+/* While the full-email reader is open the finger should scroll it. */
+.top.previewing {
+  touch-action: pan-y;
+}
+.enter {
+  animation: drop 0.42s var(--spring);
+}
+@keyframes drop {
+  from {
+    transform: translateY(-40px) scale(1.03);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+/* The sender is the first thing you read, so it gets its own tinted panel. */
+.sender {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, transparent);
+}
+.from {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.from b {
+  font: 700 18px var(--display);
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sent {
+  font: 600 12.5px var(--body);
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+.addr {
+  font: 400 12px var(--body);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.subject {
+  font: 700 25px/1.14 var(--display);
+  letter-spacing: -0.025em;
+  margin: 2px 0 0;
+  text-wrap: balance;
+}
+.summary {
+  font: 400 16.5px/1.5 var(--body);
+  margin: 0;
+}
+.summary svg {
+  width: 13px;
+  height: 13px;
+  color: var(--primary);
+  vertical-align: -1px;
+}
+.grow {
+  flex: 1;
+}
+/* Fills whatever space is left and fades out at the bottom edge. */
+.excerpt {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  font: 400 14.5px/1.55 var(--body);
+  color: var(--muted);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent);
+  mask-image: linear-gradient(#000 55%, transparent);
+}
+.facts {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.facts li {
+  font: 600 12px var(--body);
+  font-variant-numeric: tabular-nums;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--ink);
+}
+.facts li.factUrgent {
+  background: color-mix(in srgb, var(--urgent) 16%, transparent);
+}
+.foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.open {
+  font: 600 12px var(--body);
+  color: var(--primary);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+@media (hover: hover) {
+  .open:hover {
+    text-decoration: underline;
+  }
+}
+.hint {
+  font: 500 12px var(--body);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hint i {
+  width: 28px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line);
+  display: block;
+}
+
+/* swipe feedback: edge glow plus a small label */
+.edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  border: 2px solid var(--ec);
+  box-shadow: inset 0 0 60px -10px var(--ec);
+}
+.edge_read {
+  --ec: var(--read);
+}
+.edge_star {
+  --ec: var(--star);
+}
+.edge_archive {
+  --ec: var(--primary);
+}
+.edge_snooze {
+  --ec: var(--snooze);
+}
+.verdict {
+  position: absolute;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font: 700 13px var(--display);
+  opacity: 0;
+  pointer-events: none;
+  background: var(--card);
+  border: 1px solid var(--vc);
+}
+.v_read {
+  top: 18px;
+  right: 18px;
+  --vc: var(--read);
+}
+.v_star {
+  top: 18px;
+  left: 18px;
+  --vc: var(--star);
+}
+.v_archive {
+  bottom: 18px;
+  left: 50%;
+  translate: -50% 0;
+  --vc: var(--primary);
+}
+.v_snooze {
+  top: 18px;
+  left: 50%;
+  translate: -50% 0;
+  --vc: var(--snooze);
+}
+
+/* full-email reader: opens on press-and-hold (or Space), stays open, and scrolls */
+.peek {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--card), var(--card)), var(--bg);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity 0.22s,
+    transform 0.3s var(--ease);
+  border-radius: inherit;
+  overflow: hidden;
+}
+.previewing .peek {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.peekBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 12px 22px;
+  border-bottom: 1px solid var(--line);
+  flex: none;
+}
+.peekFrom {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.peekFrom b {
+  font: 600 14px var(--body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.peekFrom span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.close {
+  appearance: none;
+  flex: none;
+  cursor: pointer;
+  font: 600 12.5px var(--body);
+  color: var(--ink);
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-brd);
+  background: var(--glass);
+}
+@media (hover: hover) {
+  .close:hover {
+    background: var(--glass-strong);
+  }
+}
+.peekBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 16px 22px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  user-select: text;
+  -webkit-user-select: text;
+  scrollbar-width: thin;
+}
+.peekBody h4 {
+  margin: 0;
+  font: 700 20px/1.2 var(--display);
+  letter-spacing: -0.02em;
+}
+.peekBody p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.imgNote {
+  font: 600 11px var(--body);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.openBottom {
+  align-self: flex-start;
+  margin-top: 8px;
+  font: 600 13px var(--body);
+  color: var(--primary);
+}
+@media (hover: hover) {
+  .openBottom:hover {
+    text-decoration: underline;
+  }
+}
+.rich {
+  font-size: 14.5px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.rich a {
+  color: var(--primary);
+  text-decoration: underline;
+  pointer-events: none;
+}
+.rich h1,
+.rich h2,
+.rich h3,
+.rich h4 {
+  font: 700 16px/1.3 var(--display);
+  letter-spacing: -0.01em;
+  margin: 12px 0 4px;
+}
+.rich p,
+.rich ul,
+.rich ol {
+  margin: 0 0 10px;
+}
+.rich ul,
+.rich ol {
+  padding-left: 20px;
+}
+.rich hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 12px 0;
+}
+.rich pre,
+.rich code {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
+
+/* Short screens, for example a phone held sideways: the card gets compact. */
+@media (max-height: 520px) {
+  .deck {
+    height: clamp(190px, calc(100dvh - 190px), 420px);
+    margin-top: 12px;
+  }
+  .card {
+    padding: 10px 14px 8px;
+    gap: 7px;
+    border-radius: 22px;
+  }
+  .sender {
+    padding: 6px 10px;
+  }
+  .subject {
+    font-size: 19px;
+  }
+  .summary {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .excerpt,
+  .hint {
+    display: none;
+  }
+}

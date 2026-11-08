@@ -1,0 +1,332 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: color-mix(in srgb, var(--bg) 55%, rgba(0, 0, 0, 0.45));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fade 0.2s;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+.dialog {
+  position: relative;
+  width: min(520px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  border-radius: 30px;
+  padding: 0 0 22px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(var(--card), var(--card)), var(--bg);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-sh), 0 40px 80px -30px rgba(0, 0, 0, 0.6);
+  animation: rise 0.3s var(--ease);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+.x {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 2;
+  appearance: none;
+  border: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--glass);
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .x:hover {
+    color: var(--ink);
+    background: var(--glass-strong);
+  }
+}
+.visual {
+  height: 190px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(240px 160px at 20% 0%, color-mix(in srgb, var(--primary) 28%, transparent), transparent 70%),
+    radial-gradient(240px 160px at 90% 100%, color-mix(in srgb, var(--read) 22%, transparent), transparent 70%);
+  border-bottom: 1px solid var(--line);
+  border-radius: 30px 30px 0 0;
+}
+.content {
+  padding: 22px 26px 4px;
+  animation: fade 0.25s;
+}
+.count {
+  font: 600 11px var(--body);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.content h2 {
+  margin: 4px 0 10px;
+  font: 800 26px/1.1 var(--display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.body p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.body b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.foot {
+  padding: 14px 26px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dots {
+  display: flex;
+  gap: 6px;
+}
+.dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  transition:
+    width 0.25s var(--ease),
+    background 0.25s;
+}
+.dots i.on {
+  width: 22px;
+  border-radius: 7px;
+  background: var(--primary);
+}
+.btns {
+  display: flex;
+  gap: 8px;
+}
+
+/* direction list */
+.dirs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dirs li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.dirs b {
+  display: block;
+  font: 600 14.5px var(--body);
+  color: var(--ink);
+}
+.dirs small {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.chip {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+}
+.chip svg {
+  width: 20px;
+  height: 20px;
+}
+.read {
+  --c: var(--read);
+}
+.star {
+  --c: var(--star);
+}
+.arch {
+  --c: var(--primary);
+}
+.snooze {
+  --c: var(--snooze);
+}
+.keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font: 500 12.5px var(--body);
+  color: var(--muted);
+}
+.keys span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* illustrations (decorative, built from CSS) */
+.stackArt {
+  position: relative;
+  width: 210px;
+  height: 120px;
+}
+.stackArt i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-sh);
+}
+.c1 {
+  height: 100px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.c1 b {
+  width: 55%;
+  height: 12px;
+  border-radius: 6px;
+  background: var(--ink);
+  opacity: 0.8;
+}
+.c1 u {
+  height: 8px;
+  border-radius: 6px;
+  background: var(--line);
+  text-decoration: none;
+}
+.c1 u + u {
+  width: 70%;
+}
+.c2 {
+  height: 100px;
+  transform: translateY(-12px) scale(0.94);
+  opacity: 0.8;
+}
+.c3 {
+  height: 100px;
+  transform: translateY(-24px) scale(0.88);
+  opacity: 0.55;
+}
+.pad {
+  position: relative;
+  width: 200px;
+  height: 130px;
+}
+.mini {
+  position: absolute;
+  inset: 22px 55px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-sh);
+}
+.arrow {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font: 700 17px var(--display);
+  background: color-mix(in srgb, var(--c) 18%, transparent);
+  color: var(--c);
+}
+.left {
+  --c: var(--read);
+  left: 6px;
+  top: 48px;
+}
+.right {
+  --c: var(--star);
+  right: 6px;
+  top: 48px;
+}
+.up {
+  --c: var(--primary);
+  left: 83px;
+  top: -4px;
+}
+.down {
+  --c: var(--snooze);
+  left: 83px;
+  bottom: -4px;
+}
+.readerArt {
+  width: 190px;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-sh);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.readerArt i {
+  height: 12px;
+  width: 50%;
+  border-radius: 6px;
+  background: var(--ink);
+  opacity: 0.8;
+}
+.readerArt u {
+  height: 8px;
+  border-radius: 6px;
+  background: var(--line);
+  text-decoration: none;
+}
+.readerArt .short {
+  width: 60%;
+}
+.undoArt {
+  width: 84px;
+  height: 84px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  background: var(--card);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-sh);
+  font: 800 38px var(--display);
+  color: var(--primary);
+}
+@media (max-width: 480px) {
+  .visual {
+    height: 150px;
+  }
+  .content {
+    padding: 18px 20px 4px;
+  }
+  .foot {
+    padding: 12px 20px 0;
+  }
+}

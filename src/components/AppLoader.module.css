@@ -1,0 +1,91 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  /* Opaque on purpose: nothing of the page behind may show through while it is up. */
+  background:
+    radial-gradient(520px 420px at 12% 6%, color-mix(in srgb, var(--primary) 26%, transparent), transparent 70%),
+    radial-gradient(460px 380px at 92% 60%, color-mix(in srgb, var(--read) 20%, transparent), transparent 70%),
+    radial-gradient(420px 340px at 40% 100%, color-mix(in srgb, var(--star) 18%, transparent), transparent 70%),
+    var(--bg);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s;
+}
+.overlay[data-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+}
+.logoWrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.glow {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--read), var(--primary), var(--star), var(--read));
+  filter: blur(46px);
+  opacity: 0.38;
+  animation: spin 6s linear infinite;
+}
+.logo {
+  position: relative;
+  width: clamp(150px, 38vw, 210px);
+  height: auto;
+  animation: float 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.28));
+}
+.message {
+  margin: 0;
+  min-height: 1.4em;
+  font: 600 15px var(--body);
+  color: var(--muted);
+}
+.bar {
+  width: 140px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+.bar i {
+  display: block;
+  width: 45%;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--grad-wide);
+  animation: slide 1.3s ease-in-out infinite;
+}
+@keyframes float {
+  50% {
+    transform: translateY(-8px) scale(1.03);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes slide {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(240%);
+  }
+}

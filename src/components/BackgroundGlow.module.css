@@ -1,0 +1,36 @@
+.glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.glow i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+.a {
+  width: 560px;
+  height: 560px;
+  left: -140px;
+  top: -120px;
+  background: var(--primary);
+  opacity: var(--blob-a);
+}
+.b {
+  width: 440px;
+  height: 440px;
+  right: -100px;
+  top: 28%;
+  background: var(--read);
+  opacity: var(--blob-b);
+}
+.c {
+  width: 420px;
+  height: 420px;
+  left: 28%;
+  bottom: -180px;
+  background: var(--star);
+  opacity: var(--blob-b);
+}
